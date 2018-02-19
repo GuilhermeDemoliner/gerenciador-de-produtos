@@ -1,0 +1,89 @@
+<ion-header>
+
+    <ion-navbar>
+
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>{{title}}</ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-item>
+
+        <ion-card>
+            <img src="{{linkImagemProduto}}" >
+        </ion-card>
+
+        <button ion-button outline  (click)="takePicture()">Nova Foto</button>
+
+    </ion-item>
+
+    <form [formGroup]="form" (ngSubmit)="saveDocument(form.value)">
+
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Nome:</ion-label>
+                <ion-input
+                        type="text"
+                        formControlName="nomeProduto"
+                        [(ngModel)]="nomeProduto"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Descrição:</ion-label>
+                <ion-input
+                        type="text"
+                        formControlName="descricaoProduto"
+                        [(ngModel)]="descricaoProduto"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Valor de Venda:</ion-label>
+                <ion-input
+                        type="text"
+                        formControlName="valorProduto"
+                        [(ngModel)]="valorProduto"></ion-input>
+            </ion-item>
+
+            <ion-item padding-bottom>
+                <ion-label floating>Custo de Produção:</ion-label>
+                <ion-input
+                        type="text"
+                        formControlName="custoProduto"
+                        [(ngModel)]="custoProduto"></ion-input>
+            </ion-item>
+
+            <ion-item>
+
+                <button
+                        ion-button
+                        block
+                        outline
+                        color="primary"
+                        text-center
+                        padding-top
+                        padding-bottom
+                        [disabled]="!form.valid">
+                    <div *ngIf="!isEditable">
+                        Adicionar Produto
+                    </div>
+
+                    <div *ngIf="isEditable">
+                        Atualizar Produto
+                    </div>
+                </button>
+
+            </ion-item>
+
+        </ion-list>
+
+    </form>
+
+</ion-content>

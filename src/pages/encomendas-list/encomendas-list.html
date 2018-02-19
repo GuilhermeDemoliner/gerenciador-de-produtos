@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Encomendas</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content   padding>
+
+    <ion-fab top right edge #fab1>
+        <button ion-fab mini (click)="addProduct()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)" >
+        <ion-refresher-content
+                pullingText="Puxe para Atualizar..."
+                refreshingText="Atualizando...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item-sliding  *ngFor="let encomenda of databaseProvider.encomendas">
+
+            <ion-item>
+
+                <h2 [innerHTML]= "encomenda.nomeCliente "></h2>
+                <p>
+                    Data de Entrega: 15/02/2018<br>
+                    Custo: R$ {{encomenda.totalEncomenda}}
+                </p>
+
+                <ion-note item-end>
+                    <button ion-button item-end icon-only clear (click)="updateEncomenda(encomenda)">
+                        <ion-icon   name="eye"></ion-icon>
+                    </button>
+                </ion-note>
+
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="doConfirmDeleteProduct(encomenda)">
+                    <ion-icon name="trash"></ion-icon>
+                    Excluir
+                </button>
+            </ion-item-options>
+
+        </ion-item-sliding>
+    </ion-list>
+
+</ion-content>

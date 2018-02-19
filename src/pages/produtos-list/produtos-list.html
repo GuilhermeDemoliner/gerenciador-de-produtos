@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Produtos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content   padding>
+
+  <ion-fab top right edge #fab1>
+    <button ion-fab mini (click)="addProduct()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+    <ion-refresher-content
+            pullingText="Puxe para Atualizar..."
+            refreshingText="Atualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+<ion-list>
+
+
+  <ion-item-sliding  *ngFor="let produto of databaseProvider.produtos">
+
+
+    <ion-item>
+    <ion-thumbnail  item-start [hidden]="!databaseProvider.imgIsLoaded" >
+    <img  (click)="showFullScreen(produto.linkImagemProduto.i,produto.nomeProduto)" src="{{produto.linkImagemProduto.i}}">
+    </ion-thumbnail>
+
+
+      <ion-thumbnail item-start [hidden]="databaseProvider.imgIsLoaded" >
+        <img class="teste" src="assets/imgs/produto-generico.png">
+      </ion-thumbnail>
+
+
+    <h2 [innerHTML]= "produto.nomeProduto "></h2>
+    <p>
+      Valor: {{ produto.valorProduto }}<br>
+      Custo: {{ produto.custoProduto }}
+    </p>
+    <ion-note item-end>
+      <button ion-button item-end icon-only clear (click)="updateDocument(produto)">
+        <ion-icon   name="eye"></ion-icon>
+      </button>
+    </ion-note>
+    </ion-item>
+
+    <ion-item-options side="right">
+      <button ion-button color="danger" (click)="doConfirmDeleteProduct(produto)">
+        <ion-icon name="trash"></ion-icon>
+        Excluir
+      </button>
+    </ion-item-options>
+
+  </ion-item-sliding>
+
+
+</ion-list>
+
+</ion-content>

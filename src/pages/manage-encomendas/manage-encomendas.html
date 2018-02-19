@@ -1,0 +1,110 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{title}}</ion-title>
+
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <form [formGroup]="form" (ngSubmit)="saveDocument(form.value)">
+
+
+
+        <ion-item-divider color="primary">
+            <ion-icon large name="contact"></ion-icon> Informações do Cliente
+        </ion-item-divider>
+
+        <ion-item>
+            <ion-label floating>Nome:</ion-label>
+            <ion-input
+                    color
+                    type="text"
+                    formControlName="nomeCliente"
+                    [(ngModel)]="nomeCliente"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Telefone:</ion-label>
+            <ion-input
+                    type="text"
+                    formControlName="telefoneCliente"
+                    [(ngModel)]="telefoneCliente"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Endereço:</ion-label>
+            <ion-input
+                    type="text"
+                    formControlName="enderecoCliente"
+                    [(ngModel)]="enderecoCliente"></ion-input>
+        </ion-item>
+
+        <ion-item >
+            <ion-label floating>Data de Entrega:</ion-label>
+
+            <!--<ion-date displayFormat="DDD DD/MM/YYYY"  min="2018" max="2020" [(ngModel)]="dataEntrega" formControlName="dataEntrega"-->
+                          <!--dayShortNames="dom, seg, ter, qua, qui, sex, sab"-->
+            <!--&gt;</ion-date>-->
+        </ion-item>
+
+
+        <ion-item>
+
+            <button type="submit"
+                    ion-button
+                    block
+                    outline
+                    color="primary"
+                    text-center
+                    padding-top
+                    padding-bottom
+                    [disabled]="!form.valid"> <ion-icon mini  name='checkbox-outline'>    FINALIZAR</ion-icon>
+
+            </button>
+
+        </ion-item>
+    </form>
+
+    <ion-item-divider color="primary">
+        <ion-icon large name="cube"></ion-icon> Produtos Encomendados
+    </ion-item-divider>
+
+    <ion-item (click)="openModalProdutos()">
+        <ion-label><ion-icon   name='add'></ion-icon>  Adicionar Produto a Encomenda</ion-label>
+    </ion-item>
+    <ion-list>
+        <ion-item-sliding *ngFor="let produto of encomenda.produtosEncomenda;let i = index" >
+
+            <button ion-item (click)="mudarQuantidade(i)" >
+
+                <ion-thumbnail  item-start >
+                    <img src="{{produto.linkImagemProduto.i}}">
+                </ion-thumbnail>
+
+                <ion-label item-left>
+                    <h4 [innerHTML]="produto.nomeProduto"></h4>
+                    <h6>Valor Total: {{produto.valorProduto}}</h6>
+                    <p class="quantidadeProduto">Quantidade: {{produto.totalProduto}}</p>
+                </ion-label>
+
+            </button>
+
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="removeItem(produto,i)">
+                    <ion-icon name="trash"></ion-icon>
+                    Excluir
+                </button>
+            </ion-item-options>
+
+        </ion-item-sliding>
+
+    </ion-list>
+
+</ion-content>
